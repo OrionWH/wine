@@ -27,17 +27,14 @@ class S(BaseHTTPRequestHandler):
     def do_GET(self):
         logging.info("GET request,\nPath: %s\nHeaders:\n%s\n", str(self.path), str(self.headers))
         self._set_response()
-        #self.wfile.write("GET request for {}".format(self.path).encode('utf-8'))
-        #with open("_public/random.tt") as f:
-        #    line = f.readline()
-        #    while line:
-        #        self.wfile.write(line.encode('utf-8'))
-        #        line = f.readline()
         p = Parser()
-        print(p.read_page("_public/random.tt"))
-        self.wfile.write(p.read_page("_public/random.tt").encode('utf-8'))
-
+        if str(self.path) == "/":
+            page_path = "_public/index.tt"
+        else:
+            page_path = "_public/{}.tt".format(str(self.path))
+        self.wfile.write(p.read_page(page_path).encode('utf-8'))
         
+
     def do_POST(self):
         content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
         post_data = self.rfile.read(content_length) # <--- Gets the data itself

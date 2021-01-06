@@ -9,3 +9,12 @@ git branch -D main
 git branch -m main
 git push -f origin main
 ::
+
+Delete branches
+::c
+// delete branch locally
+git branch -d localBranchName
+
+// delete branch remotely
+git push origin --delete remoteBranchName
+::
