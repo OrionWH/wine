@@ -1,0 +1,13 @@
+version: '3'
+services:
+  wine:
+    build: .
+    container_name: wine
+    hostname: wine
+    volumes:
+      - /data/wine:/data/wine
+    restart: always
+    ports:
+      - "127.0.0.1:8080:8080"
+    command: /data/wine/server.py
+    

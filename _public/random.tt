@@ -1,0 +1,11 @@
+::h Git
+
+Delete git history:
+::c
+git checkout --orphan tmp
+git add -A
+git commit -am "init"
+git branch -D main
+git branch -m main
+git push -f origin main
+::

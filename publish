@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source deploy.env
+
+scp -r _public $DEPLOY_DEST:/data/wine/   || exit 1

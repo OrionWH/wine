@@ -1,0 +1,18 @@
+#!/bin/bash
+
+source deploy.env
+
+dirs="/data/wine /data/wine/_public"
+files="server.py parser.py"
+
+ssh $DEPLOY_DEST "mkdir -p ${dirs}"               || exit 1
+
+scp compose-wine.yml $DEPLOY_DEST:/data/wine   || exit 1
+scp Dockerfile       $DEPLOY_DEST:/data/wine   || exit 1
+scp start_wine       $DEPLOY_DEST:/data/wine   || exit 1
+scp ${files}         $DEPLOY_DEST:/data/wine   || exit 1
+
+ssh $DEPLOY_DEST "/data/wine/start_wine"       || exit 1
+ssh $DEPLOY_DEST "docker ps"                   || exit 1
+
+scp -r _public $DEPLOY_DEST:/data/wine/        || exit 1
